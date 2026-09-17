@@ -1,0 +1,14 @@
+# Local dev convenience only — gitignored, never committed (see .gitignore
+# for why). Docker Compose auto-loads this file alongside docker-compose.yml
+# whenever you run `docker compose up` with no explicit -f flags, so this
+# only ever applies on machines where the file actually exists on disk.
+#
+# Publishes db's Postgres port to the host so host-based commands
+# (`uv run python manage.py test`, `manage.py runserver` under
+# production settings) can reach it directly at localhost:5432, instead
+# of needing a native Postgres install (which this project deliberately
+# doesn't use — see CLAUDE.md's Development Workflow section).
+services:
+  db:
+    ports:
+      - "5432:5432"

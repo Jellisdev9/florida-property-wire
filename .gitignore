@@ -52,13 +52,19 @@ Thumbs.db
 __pycache__/
 *.pyc
 .venv/
-backend/db.sqlite3
 backend/.env
 backend/tailwindcss
 backend/staticfiles/
 
 # Docker Compose var-substitution file (DB_NAME/USER/PASSWORD, SITE_ADDRESS)
 /.env
+
+# Local dev convenience only — publishes db's Postgres port to the host so
+# host-based `manage.py test`/`runserver` can reach it without a native
+# Postgres install. Must never be committed: docker-compose.yml's deploy
+# job runs plain `docker compose up -d`, which auto-loads this file if
+# present — committing it would expose Postgres publicly on the VPS.
+/docker-compose.override.yml
 
 # Local-only planning/scratch docs — not durable project docs like
 # BUILD_PLAN.md, still being figured out, not meant to be committed.
