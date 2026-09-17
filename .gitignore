@@ -66,9 +66,5 @@ backend/staticfiles/
 # present — committing it would expose Postgres publicly on the VPS.
 /docker-compose.override.yml
 
-# Local-only planning/scratch docs — not durable project docs like
-# BUILD_PLAN.md, still being figured out, not meant to be committed.
-# planning/ holds the active spec + structural docs; planning-archive/ is
-# where docs land once the work they describe is done or superseded.
-planning/
-planning-archive/
+# dev-notes stub (real content lives in ~/dev-notes/real-estate/florida-property-wire/, not synced here)
+CLAUDE.md
