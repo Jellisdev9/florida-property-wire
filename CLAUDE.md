@@ -1,4 +1,4 @@
-# Florida Flamingo Report
+# Florida Property Wire
 
 Editorial/business-news style real estate publication focused on Florida real estate.
 Covers notable sales, agent moves, market trends, neighborhoods, luxury closings, and development news.
@@ -30,7 +30,7 @@ Covers notable sales, agent moves, market trends, neighborhoods, luxury closings
 ## Project Structure
 
 ```
-florida-flamingo-report/
+florida-property-wire/
 ├── CLAUDE.md
 ├── backup/                         # nightly Postgres backup service (pg_dump + rclone)
 │   ├── Dockerfile
@@ -239,7 +239,7 @@ speculatively now.
 
 On every push to `main`, CI runs tests and — if green — builds the
 Docker image and pushes it to GHCR
-(`ghcr.io/<owner>/florida-flamingo-report`). Actually rolling that
+(`ghcr.io/<owner>/florida-property-wire`). Actually rolling that
 image out to the VPS is a separate, manually-triggered step
 (`workflow_dispatch` in the same workflow, SSHes in and runs
 `docker compose pull && docker compose up -d`) rather than
@@ -284,7 +284,7 @@ for real S3 credentials, which don't exist yet — see Next Steps).
 
 ## Next Steps
 
-- [ ] Provision the shared VPS (recommended: Hetzner CX32, ~$9/mo)
+- [ ] Provision the shared VPS — decided: OVH VPS-2 (8GB RAM)
 - [ ] Add `VPS_HOST` / `VPS_USER` / `VPS_SSH_KEY` repo secrets once
       the VPS exists, so the `deploy` job in
       `.github/workflows/ci.yml` can actually run
@@ -294,5 +294,5 @@ for real S3 credentials, which don't exist yet — see Next Steps).
       `backup` service is built and verified but has never pushed to a
       real remote yet
 - [ ] First real deploy: `git clone` this repo onto the VPS at
-      `/opt/florida-flamingo-report`, set `SITE_ADDRESS` to the real
+      `/opt/florida-property-wire`, set `SITE_ADDRESS` to the real
       domain in its root `.env`, `docker compose up -d`

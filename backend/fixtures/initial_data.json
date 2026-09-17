@@ -423,7 +423,9 @@
     "fields": {
       "location": "Winter Park",
       "change_display": "+18.7%",
-      "rank": 1
+      "rank": 1,
+      "period_month": 6,
+      "period_year": 2026
     }
   },
   {
@@ -432,7 +434,9 @@
     "fields": {
       "location": "West Palm Beach",
       "change_display": "+14.2%",
-      "rank": 2
+      "rank": 2,
+      "period_month": 6,
+      "period_year": 2026
     }
   },
   {
@@ -441,7 +445,9 @@
     "fields": {
       "location": "Sarasota",
       "change_display": "+13.5%",
-      "rank": 3
+      "rank": 3,
+      "period_month": 6,
+      "period_year": 2026
     }
   },
   {
@@ -450,7 +456,9 @@
     "fields": {
       "location": "Lakeland",
       "change_display": "+12.2%",
-      "rank": 4
+      "rank": 4,
+      "period_month": 6,
+      "period_year": 2026
     }
   },
   {
@@ -459,7 +467,9 @@
     "fields": {
       "location": "Jacksonville Beach",
       "change_display": "+11.8%",
-      "rank": 5
+      "rank": 5,
+      "period_month": 6,
+      "period_year": 2026
     }
   }
 ]

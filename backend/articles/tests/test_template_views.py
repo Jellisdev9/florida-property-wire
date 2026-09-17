@@ -162,7 +162,7 @@ class AboutViewTest(TestCase):
 
     def test_contains_publication_name(self):
         response = self.client.get(reverse("about"))
-        self.assertContains(response, "Florida Flamingo Report")
+        self.assertContains(response, "Florida Property Wire")
 
 
 # ── Error pages ──────────────────────────────────────────────────────────────

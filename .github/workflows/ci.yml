@@ -14,21 +14,21 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: ffr
-          POSTGRES_USER: ffr
+          POSTGRES_DB: fpw
+          POSTGRES_USER: fpw
           POSTGRES_PASSWORD: ci
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U ffr -d ffr"
+          --health-cmd "pg_isready -U fpw -d fpw"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 5
     env:
       DJANGO_SETTINGS_MODULE: backend.settings.test
       SECRET_KEY: ci-test-secret-key
-      DB_NAME: ffr
-      DB_USER: ffr
+      DB_NAME: fpw
+      DB_USER: fpw
       DB_PASSWORD: ci
       DB_HOST: localhost
       DB_PORT: 5432
@@ -94,6 +94,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /opt/florida-flamingo-report
+            cd /opt/florida-property-wire
             docker compose pull
             docker compose up -d

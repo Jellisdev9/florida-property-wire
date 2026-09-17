@@ -14,7 +14,7 @@
   without hitting that limit — optional, with sane defaults via the
   `default` filter for any page that doesn't pass one.
   {% endcomment %}
-  <title>{% block title %}Florida Flamingo Report{% endblock %}</title>
+  <title>{% block title %}Florida Property Wire{% endblock %}</title>
 
   <meta name="description" content="{{ meta_description|default:'Notable sales, agent moves, market trends, and neighborhood intelligence across Florida.' }}" />
 
@@ -23,9 +23,9 @@
   <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}" />
 
   {# Open Graph — controls how links look when shared on Slack/Facebook/etc. #}
-  <meta property="og:site_name" content="Florida Flamingo Report" />
+  <meta property="og:site_name" content="Florida Property Wire" />
   <meta property="og:type" content="{{ og_type|default:'website' }}" />
-  <meta property="og:title" content="{{ page_title|default:'Florida Flamingo Report' }}" />
+  <meta property="og:title" content="{{ page_title|default:'Florida Property Wire' }}" />
   <meta property="og:description" content="{{ meta_description|default:'Notable sales, agent moves, market trends, and neighborhood intelligence across Florida.' }}" />
   {% if og_image %}
   <meta property="og:image" content="{{ og_image }}" />
@@ -36,7 +36,7 @@
 
   {# Twitter Card — same content, Twitter's own meta tag names #}
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{ page_title|default:'Florida Flamingo Report' }}" />
+  <meta name="twitter:title" content="{{ page_title|default:'Florida Property Wire' }}" />
   <meta name="twitter:description" content="{{ meta_description|default:'Notable sales, agent moves, market trends, and neighborhood intelligence across Florida.' }}" />
   {% if og_image %}
   <meta name="twitter:image" content="{{ og_image }}" />
@@ -63,10 +63,10 @@
         {# Logo + Masthead #}
         <a href="/" class="flex items-center gap-3 group">
           <div class="bg-[#d4a817] text-black font-bold text-xl px-2 py-1 flex items-center justify-center h-10 w-10">
-            FFR
+            FPW
           </div>
           <div>
-            <h1 class="font-serif text-2xl md:text-3xl font-bold tracking-tight">Florida Flamingo Report</h1>
+            <h1 class="font-serif text-2xl md:text-3xl font-bold tracking-tight">Florida Property Wire</h1>
             <p class="text-gray-400 text-xs md:text-sm tracking-wide hidden md:block">
               Notable sales, agent moves, market trends, and neighborhood intelligence across Florida.
             </p>
@@ -150,11 +150,11 @@
   <footer class="w-full border-t border-gray-200 bg-white py-12 px-4 md:px-8 mt-auto">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
       <div class="flex items-center gap-3 opacity-50 grayscale">
-        <div class="bg-[#0d1b2a] text-white font-bold text-xl px-2 py-1 flex items-center justify-center h-10 w-10">FFR</div>
-        <span class="font-serif font-bold text-lg">Florida Flamingo Report</span>
+        <div class="bg-[#0d1b2a] text-white font-bold text-xl px-2 py-1 flex items-center justify-center h-10 w-10">FPW</div>
+        <span class="font-serif font-bold text-lg">Florida Property Wire</span>
       </div>
       <div class="flex items-center gap-4 text-sm text-gray-500">
-        <span>&copy; 2024 Florida Flamingo Report. All rights reserved.</span>
+        <span>&copy; 2024 Florida Property Wire. All rights reserved.</span>
         <a href="{% url 'article_archive' %}" class="hover:text-gray-700 underline">Articles</a>
         <a href="{% url 'unsubscribe' %}" class="hover:text-gray-700 underline">Unsubscribe</a>
       </div>

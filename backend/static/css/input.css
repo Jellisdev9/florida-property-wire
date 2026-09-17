@@ -22,18 +22,6 @@
   --font-family-sans: Inter, system-ui, sans-serif;
 }
 
-/* ── Brand color utilities ────────────────────────────────────────────────── */
-/* These custom classes mirror what the React app defined in index.css.        */
-/* They are plain CSS — Tailwind will include them because they're in input.css */
-
-.fpr-navy      { background-color: #0d1b2a; }
-.fpr-teal      { background-color: #0f4c5c; }
-.fpr-gold      { color: #d4a817; }
-.fpr-gold-bg   { background-color: #d4a817; }
-.fpr-coral     { color: #e05c4b; }
-.fpr-coral-bg  { background-color: #e05c4b; }
-.fpr-green     { color: #2e7d32; }
-
 /* ── Scrollbar-hiding utility ─────────────────────────────────────────────── */
 /* Used on the main nav and market strip: overflow-x-auto still lets a narrow
    viewport scroll them horizontally instead of wrapping/breaking layout, but

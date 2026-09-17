@@ -12,8 +12,8 @@ ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME", "ffr"),
-        "USER": os.environ.get("DB_USER", "ffr"),
+        "NAME": os.environ.get("DB_NAME", "fpw"),
+        "USER": os.environ.get("DB_USER", "fpw"),
         "PASSWORD": os.environ.get("DB_PASSWORD", ""),
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
