@@ -16,6 +16,7 @@ services:
   web:
     build: ./backend
     image: ghcr.io/jellisdev9/florida-property-wire:latest
+    container_name: florida-property-wire-web
     env_file:
       - backend/.env
     environment:
