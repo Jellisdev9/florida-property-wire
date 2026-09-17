@@ -1747,27 +1747,6 @@
     }
   }
 }
-.fpr-navy {
-  background-color: #0d1b2a;
-}
-.fpr-teal {
-  background-color: #0f4c5c;
-}
-.fpr-gold {
-  color: #d4a817;
-}
-.fpr-gold-bg {
-  background-color: #d4a817;
-}
-.fpr-coral {
-  color: #e05c4b;
-}
-.fpr-coral-bg {
-  background-color: #e05c4b;
-}
-.fpr-green {
-  color: #2e7d32;
-}
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
