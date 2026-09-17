@@ -23,8 +23,8 @@ Covers notable sales, agent moves, market trends, neighborhoods, luxury closings
 - Tailwind CSS via the standalone CLI binary (`backend/tailwindcss`, gitignored — re-download command below)
 
 ### Deployment
-- Docker Compose: `web` (gunicorn), `db` (Postgres), `caddy` (reverse proxy + TLS), `backup` (nightly Postgres backups)
-- Caddy — automatic TLS (internal CA locally, Let's Encrypt in production) from one `Caddyfile`
+- Docker Compose: `web` (gunicorn), `db` (Postgres), `backup` (nightly Postgres backups)
+- TLS/reverse proxy — handled by a **shared Caddy instance on the VPS**, owned by the `infra` repo, not bundled here (see "Deployment strategy" below)
 - GitHub Actions — test gate + image build/push to GHCR (`.github/workflows/ci.yml`)
 
 ## Project Structure
@@ -162,7 +162,7 @@ uv add <package>
 Before pushing, verify against the same stack that runs in production:
 
 ```bash
-docker compose up --build   # from the repo root — web + Postgres + Caddy
+docker compose up --build   # from the repo root — web + Postgres
 ```
 
 `manage.py` defaults `DJANGO_SETTINGS_MODULE` to `backend.settings.development`. `development.py` and `test.py` (which `manage.py test` always forces regardless of `.env` — see `manage.py` — so tests run against the same engine as CI) both use real Postgres, not SQLite, reading `DB_NAME`/`DB_USER`/`DB_PASSWORD`/`DB_HOST`/`DB_PORT` from the environment with defaults matching Docker's `db` container. SQLite was dropped entirely — one database engine everywhere (dev, test, prod) beats a separate SQLite-only path that could silently diverge in behavior from what production actually runs.
@@ -247,22 +247,25 @@ payments/compliance exposure — revisit if any of that changes). CI
 safety a staging environment would give: every push/PR to `main` runs
 the full test suite against a real Postgres service container.
 
-This project is one of several (~20 apps planned over a short window)
-meant to share **one VPS** rather than each getting its own — at this
-traffic level, per-app instances would mean paying for isolation none
-of them need yet. Each app is containerized identically: a
-`Dockerfile` + `docker-compose.yml` (Django/gunicorn + Postgres +
-Caddy) that runs unchanged on the dev machine and on the VPS. Caddy
-replaces nginx+`mkcert`: it auto-detects `localhost`/an IP vs. a real
-domain and switches between its internal self-signed CA and real
-Let's Encrypt automatically, from the same `Caddyfile`, via one
-`SITE_ADDRESS` env var — no separate local-TLS tooling needed.
+This project is one of several apps meant to share **one VPS** rather
+than each getting its own — at this traffic level, per-app instances
+would mean paying for isolation none of them need yet. Each app is
+containerized as a `Dockerfile` + `docker-compose.yml` (Django/gunicorn
++ Postgres + a nightly backup service) that runs unchanged on the dev
+machine and on the VPS.
 
-Caddy is currently bundled per-app (this repo's own `docker-compose.yml`
-runs its own Caddy on 80/443), **not** yet extracted into shared
-multi-app infra — that refactor is deliberately deferred until a
-second app actually needs to share the VPS's ports 80/443, not built
-speculatively now.
+**TLS/reverse proxy is not part of this repo** (decided 2026-09-17,
+`infra` ADR 0004, superseding this project's original per-app-bundled
+Caddy setup): the VPS runs one shared Caddy
+instance, owned by the `infra` repo, that routes each site's domain to
+its `web` container over a shared external Docker network (`edge`,
+which this repo's `web` service joins in `docker-compose.yml`). Postgres
+stays per-app, though — each site on the VPS gets its own dedicated `db`
+instance rather than a shared one, a deliberate tradeoff for being able
+to move a site off-box later without an extraction project. Locally,
+`docker compose up --build` now only runs `web` + `db` (+ `backup`) —
+there's no local Caddy/HTTPS step to verify anymore; that lives entirely
+on the VPS side now.
 
 On every push to `main`, CI runs tests and — if green — builds the
 Docker image and pushes it to GHCR

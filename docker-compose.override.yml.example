@@ -7,7 +7,7 @@
 # (`uv run python manage.py test`, `manage.py runserver` under
 # production settings) can reach it directly at localhost:5432, instead
 # of needing a native Postgres install (which this project deliberately
-# doesn't use — see CLAUDE.md's Development Workflow section).
+# doesn't use — see README.md's Development Workflow section).
 services:
   db:
     ports:

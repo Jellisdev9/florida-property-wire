@@ -1,3 +1,0 @@
-{$SITE_ADDRESS:localhost} {
-	reverse_proxy web:8000
-}
