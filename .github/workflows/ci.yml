@@ -85,18 +85,18 @@ jobs:
     steps:
       # Pulls whatever image is currently tagged :latest in GHCR (built by
       # the most recent push to main) and restarts the stack on the VPS.
-      # Needs VPS_HOST / VPS_USER / VPS_SSH_KEY / TS_OAUTH_CLIENT_ID /
-      # TS_OAUTH_SECRET repo secrets — see infra's VPS_BOOTSTRAP_STEPS.md
-      # Block G. VPS_HOST must be the VPS's Tailscale IP or MagicDNS name,
-      # not its public IP: SSH is Tailscale-only by design (infra
-      # CLAUDE.md's design law), and the runner below only joins the
-      # tailnet, it isn't on your home network.
+      # Needs VPS_HOST / VPS_USER / VPS_SSH_KEY / TS_AUTHKEY repo secrets —
+      # see infra's VPS_BOOTSTRAP_STEPS.md Block G. VPS_HOST must be the
+      # VPS's Tailscale IP or MagicDNS name, not its public IP: SSH is
+      # Tailscale-only by design (infra CLAUDE.md's design law), and the
+      # runner below only joins the tailnet, it isn't on your home network.
       - name: Connect to tailnet
         uses: tailscale/github-action@v3
         with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
+          # Plain reusable+ephemeral auth key, tagged tag:ci at generation
+          # time in the admin console — not an OAuth client. The tag
+          # doesn't need to be passed here, it's already baked into the key.
+          authkey: ${{ secrets.TS_AUTHKEY }}
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
