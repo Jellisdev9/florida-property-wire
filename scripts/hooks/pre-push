@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Blocks a direct `git push` to main — see the `infra` repo's
+# docs/adr/0006-branch-pr-review-workflow.md for the full decision
+# (this rule applies across every repo in this ecosystem, not just infra).
+#
+# Not enabled by default; git only runs hooks from .git/hooks, which isn't
+# versioned. Enable once per clone:
+#   git config core.hooksPath scripts/hooks
+#
+# Deliberate override (e.g. an emergency fix with no time for a PR):
+#   ALLOW_MAIN_PUSH=1 git push origin main
+set -euo pipefail
+
+protected_branch="main"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+	if [ "$remote_ref" = "refs/heads/${protected_branch}" ]; then
+		if [ "${ALLOW_MAIN_PUSH:-}" != "1" ]; then
+			echo "Blocked: direct push to '${protected_branch}' (ADR 0006 — branch + PR + review required)." >&2
+			echo "Push a branch and open a PR instead, or set ALLOW_MAIN_PUSH=1 for a deliberate override." >&2
+			exit 1
+		fi
+	fi
+done
+
+exit 0

@@ -159,6 +159,8 @@ uv run python manage.py test articles # single app
 uv add <package>
 ```
 
+**Branch + PR + code review before merging to `main`** — no direct commits to `main` (decided 2026-09-21, `infra` repo's `docs/adr/0006-branch-pr-review-workflow.md` has the full rationale; applies across this whole ecosystem, not just this repo). `scripts/hooks/pre-push` is a local backstop that blocks a direct push to `main` — enable it once per clone with `git config core.hooksPath scripts/hooks`.
+
 Before pushing, verify against the same stack that runs in production:
 
 ```bash
