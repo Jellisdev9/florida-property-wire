@@ -12,3 +12,13 @@ services:
   db:
     ports:
       - "5432:5432"
+
+# docker-compose.yml declares `edge` as external: true — on the VPS it's
+# created once by infra's Ansible bootstrap so the shared Caddy instance
+# can route to this site's `web` container. Nothing creates that network
+# locally, so `web` fails to start with "network edge declared as
+# external, but could not be found" unless this override tells Compose
+# to create its own local-only `edge` network instead.
+networks:
+  edge:
+    external: false
